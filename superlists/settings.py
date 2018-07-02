@@ -11,6 +11,23 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
+
+from django.core.exceptions import ImproperlyConfigured
+
+
+# JSON-based secret module
+with open("secrets.json") as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +37,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8j4lrf&l&uxot6obi4=*^!v9-6sgjy=i%xt(%p@0luw!%r6g3w'
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,10 +94,10 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbsuperlists',
-        'USER': 'OLVT',
-        'PASSWORD': '1123',
-        'HOST': '127.0.0.1',
+        'NAME': get_secret("DATABASES_NAME"),
+        'USER': get_secret("DATABASES_USER"),
+        'PASSWORD': get_secret("DATABASES_PASSWORD"),
+        'HOST': get_secret("DATABASES_HOST"),
         'PORT': '5432',
     }
 }

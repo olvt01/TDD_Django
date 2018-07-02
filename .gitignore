@@ -3,4 +3,5 @@ geckodriver.exe
 __pycache__ 
 *.pyc 
 geckodriver.log 
-/static 
+/static
+secrets.json
