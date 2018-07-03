@@ -40,13 +40,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = [
-  'localhost',
-  '.amazonaws.com',
-]
-
+if 'DANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = False
+    ALLOWED_HOSTS = ['.amazonaws.com']
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -101,7 +101,7 @@ DATABASES = {
         'USER': get_secret("DATABASES_USER"),
         'PASSWORD': get_secret("DATABASES_PASSWORD"),
         'HOST': get_secret("DATABASES_HOST"),
-        'PORT': '5432',
+        'PORT': get_secret("DATABASES_PORT"),
     }
 }
 
