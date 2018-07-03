@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn server for superlists-test.com
+
+[Service]
+Restart=on-failure
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/sites/superlists-test.com
+
+ExecStart=/home/ubuntu/.pyenv/versions/3.6.5/bin/gunicorn \
+    --bind unix:/tmp/superlists-test.com.socket superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
