@@ -20,11 +20,11 @@ def deploy():
     site_folder = f'/home/{env.user}/sites/{env.sites}'
     run(f'mkdir -p {site_folder}')
     with cd(site_folder):
-        _get_latest_source()
-        #_update_virtualenv()
+        #_get_latest_source()
+        _update_pyenv_virtualenv()  # must
         #_create_or_update_dotenv()
         _update_static_files()
-        #_update_database()
+        _update_database()
         # run('echo "d" > "a"')
 
 
@@ -37,10 +37,15 @@ def _get_latest_source():
     run(f'git reset --hard {current_commit}')
 
 
-def _update_virtualenv():
-    if not exists('virtualenv/bin/pip'):
-        run(f'python3.6 -m venv virtualenv')
-    run('./virtualenv/bin/pip install -r requirements.txt')
+def _install_pyenv():
+    pass
+
+
+def _update_pyenv_virtualenv():
+    if not exists(f'~/.pyenv/versions/{env.sites}'):
+        run(f'pyenv virtualenv 3.6.5 {env.sites}')
+    run(f'pyenv activate {env.sites}')
+    run(f'~/.pyenv/versions/{env.sites}/bin/pip install -r requirements.txt')
 
 
 def _create_or_update_dotenv():
@@ -55,11 +60,11 @@ def _create_or_update_dotenv():
 
 
 def _update_static_files():
-    run('python manage.py collectstatic --noinput')
+    run(f'~/.pyenv/versions/{env.sites}/bin/python manage.py collectstatic --noinput')
 
 
 def _update_database():
-    run('python manage.py migrate --noinput')
+    run(f'~/.pyenv/versions/{env.sites}/bin/python manage.py migrate --noinput')
 
 
 
