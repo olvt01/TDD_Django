@@ -20,7 +20,7 @@ def deploy():
     site_folder = f'/home/{env.user}/sites/{env.sites}'
     run(f'mkdir -p {site_folder}')
     with cd(site_folder):
-        #_get_latest_source()
+        _get_latest_source()
         _update_pyenv_virtualenv()  # must
         #_create_or_update_dotenv()
         _update_static_files()
