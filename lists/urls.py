@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from . import views
+from lists import views
 
 urlpatterns = [
     path('new', views.new_list, name='new_list'),

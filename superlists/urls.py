@@ -21,5 +21,6 @@ urlpatterns = [
     path("", list_views.home_page, name='home'),
     path('lists/', include('lists.urls'), name='lists'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls'), name='accounts')
 ]
 
