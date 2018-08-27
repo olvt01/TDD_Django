@@ -61,11 +61,6 @@ INSTALLED_APPS = [
     'accounts',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += [
-        'django_extensions',
-    ]
-
 
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = [
