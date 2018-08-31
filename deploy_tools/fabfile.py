@@ -17,7 +17,7 @@ def remote_uname():
 
 
 def deploy():
-    site_folder = f'/home/{env.user}/sites/{env.sites}'
+    site_folder = f'/home/ubuntu/sites/{env.sites}'
     run(f'mkdir -p {site_folder}')
     with cd(site_folder):
         _get_latest_source()

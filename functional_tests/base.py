@@ -1,5 +1,6 @@
 import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from .server_tools import reset_database
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import time
@@ -11,10 +12,11 @@ class FunctionalTest(StaticLiveServerTestCase):
 
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
-        staging_server = os.environ.get('STAGING_SERVER')
-        if staging_server:
-            self.live_server_url = 'http://' + staging_server
+        self.browser = webdriver.Chrome()
+        self.staging_server = os.environ.get('STAGING_SERVER')
+        if self.staging_server:
+            self.live_server_url = 'http://' + self.staging_server
+            reset_database(self.staging_server)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
