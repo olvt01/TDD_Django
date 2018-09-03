@@ -5,3 +5,6 @@ __pycache__
 geckodriver.log 
 /static
 secrets.json
+chromedriver.exe
+bash.exe.stackdump
+debug.log
