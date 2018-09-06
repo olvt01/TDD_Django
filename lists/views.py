@@ -30,6 +30,11 @@ def new_list(request):
     else:
         return render(request, 'lists/home.html', {'form': form})
 
+
+def my_lists(request, email):
+    return render(request, 'lists/my_lists.html')
+
+
 # def new_list(request):
 #     list_ = List.objects.create()
 #     item = Item.objects.create(text=request.POST['item_text'], list=list_)
@@ -42,4 +47,5 @@ def new_list(request):
 #         return render(request, 'lists/home.html', {"error": error})
 #     #return redirect(f'/lists/{list_.id}/')
 #     return redirect(list_)
+
 
