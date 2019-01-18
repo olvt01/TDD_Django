@@ -2,7 +2,7 @@ from django.conf import settings
 from .base import FunctionalTest
 from .server_tools import create_session_on_server
 from .management.commands.create_session import create_pre_authenticated_session
-
+import time
 
 class MyListsTest(FunctionalTest):
 
@@ -32,6 +32,7 @@ class MyListsTest(FunctionalTest):
         self.add_list_item('Reticulate splines')
         self.add_list_item('Immanetize eschaton')
         first_list_url = self.browser.current_url
+
 
         # She notices a "My Lists" Link, for the first time.
         self.browser.find_element_by_link_text('My lists').click()
@@ -64,6 +65,7 @@ class MyListsTest(FunctionalTest):
         # She Logs out. The "My lists" option dissapears
         self.browser.find_element_by_link_text('Log out').click()
         self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_link_text('My lists'),
+            self.browser.find_elements_by_link_text('My lists'),
             []
         ))
+
