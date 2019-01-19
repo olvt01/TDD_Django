@@ -8,4 +8,4 @@ secrets.json
 chromedriver.exe
 bash.exe.stackdump
 debug.log
-functional_tests/screendump
+functional_tests/screendumps
